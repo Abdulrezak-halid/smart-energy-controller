@@ -4,18 +4,12 @@ A Mamdani fuzzy logic system that determines the optimal energy usage level from
 
 ## Live Demo
 
-- Vercel demo page: add your deployed Vercel URL here after deployment.
-- Local Streamlit app: run `./run_app.sh`
+- Live Streamlit app: add your deployed Streamlit URL here.
+- Local app: run `./run_app.sh`
 
-Important: Vercel's Python runtime expects an ASGI/WSGI `app`, `application`, or `handler`. Streamlit apps do not expose that kind of entrypoint, so this repository uses Vercel for a static project demo page and keeps the full interactive dashboard as a Streamlit app.
+This is a Streamlit application. For the main app to show directly online, deploy it on Streamlit Community Cloud or another host that supports long-running Streamlit apps.
 
 ## Screenshots
-
-### Vercel Demo Page
-
-![Vercel demo page](assets/screenshots/vercel-demo.png)
-
-### Streamlit Dashboard
 
 Add dashboard screenshots in `assets/screenshots/` and reference them here.
 
@@ -98,31 +92,14 @@ streamlit run app.py
 - Output: energy usage level
 - Rule base: 20 IF-THEN rules
 
-## Deploying the Demo Page to Vercel
+## Deploying the Main App
 
-This repo includes `vercel.json` and `public/index.html` for a Vercel-compatible static demo page.
+Use Streamlit Community Cloud for a direct live app:
 
 1. Push the repository to GitHub.
-2. Import the project in Vercel.
-3. Keep the framework preset as `Other`.
-4. Deploy.
+2. Go to Streamlit Community Cloud.
+3. Create a new app from this repository.
+4. Set the main file path to `app.py`.
+5. Deploy.
 
-The Vercel page is a project showcase. For the full interactive Streamlit app, run locally with `./run_app.sh` or deploy the Streamlit app to a Streamlit-friendly host.
-
-## Project Structure
-
-```text
-.
-├── app.py
-├── fuzzy_system/
-│   ├── __init__.py
-│   └── controller.py
-├── public/
-│   └── index.html
-├── assets/
-│   └── screenshots/
-├── run_app.sh
-├── requirements.txt
-├── vercel.json
-└── README.md
-```
+Vercel is not recommended for this app because its Python runtime expects an ASGI/WSGI entrypoint like `app`, `application`, or `handler`, while Streamlit runs its own interactive app server.
