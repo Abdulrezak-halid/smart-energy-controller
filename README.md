@@ -4,10 +4,10 @@ A Mamdani fuzzy logic system that determines the optimal energy usage level from
 
 ## Live Demo
 
-- Live Streamlit app: add your deployed Streamlit URL here.
+- Live app: add your deployed Streamlit URL here.
 - Local app: run `./run_app.sh`
 
-This is a Streamlit application. For the main app to show directly online, deploy it on Streamlit Community Cloud or another host that supports long-running Streamlit apps.
+This is a Streamlit application. To make the deployed site appear exactly like the local app, deploy it to a Streamlit-friendly host such as Streamlit Community Cloud, Render, or Railway.
 
 ## Screenshots
 
@@ -94,12 +94,32 @@ streamlit run app.py
 
 ## Deploying the Main App
 
-Use Streamlit Community Cloud for a direct live app:
+### Recommended: Streamlit Community Cloud
+
+This is the simplest option for opening a URL and seeing the real app directly.
 
 1. Push the repository to GitHub.
-2. Go to Streamlit Community Cloud.
+2. Go to Streamlit Community Cloud: https://share.streamlit.io/
 3. Create a new app from this repository.
 4. Set the main file path to `app.py`.
 5. Deploy.
 
-Vercel is not recommended for this app because its Python runtime expects an ASGI/WSGI entrypoint like `app`, `application`, or `handler`, while Streamlit runs its own interactive app server.
+### Render or Railway
+
+This repo also includes a `Procfile`:
+
+```text
+web: streamlit run app.py --server.address=0.0.0.0 --server.port=$PORT
+```
+
+Use that start command if your host asks for one.
+
+### Why Vercel Shows an Error
+
+Vercel is not the right deployment target for this Streamlit app. Vercel's Python runtime expects a serverless Python entrypoint named `app`, `application`, or `handler`. Streamlit does not expose that kind of entrypoint; it starts its own interactive web server. That is why Vercel reports:
+
+```text
+Found app.py but it does not export a top-level "app", "application", or "handler" variable.
+```
+
+For a normal deployed page that behaves like local Streamlit, use Streamlit Community Cloud.
