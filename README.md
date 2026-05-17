@@ -2,15 +2,13 @@
 
 A Streamlit-based decision support system that uses Mamdani fuzzy logic to recommend an optimal energy usage level from real-time electricity price, battery level, and solar production.
 
-
-### **[View Live Demo](https://smart-energy-controller.streamlit.app/)** 👁️
-
-
 ## Overview
 
 Smart Energy Consumption Controller models a simple home or microgrid energy-management problem. Instead of relying on fixed thresholds, the system uses fuzzy logic to handle uncertain and gradual conditions such as "high price", "low battery", or "medium solar production".
 
 The application converts crisp input values into fuzzy membership degrees, evaluates a rule base, aggregates the active output sets, and defuzzifies the result into a clear energy usage recommendation.
+
+### **[View Live Demo](https://smart-energy-controller.streamlit.app/)** 👁️
 
 ## Screenshots
 
