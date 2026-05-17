@@ -1,56 +1,123 @@
-# Smart Energy Consumption Controller
+# Smart Energy Consumption Controller ⚡
 
-A Mamdani fuzzy logic system that determines the optimal energy usage level from electricity price, battery state, and solar production.
+A Streamlit-based decision support system that uses Mamdani fuzzy logic to recommend an optimal energy usage level from real-time electricity price, battery level, and solar production.
 
-## Live Demo
 
-- Live app: add your deployed Streamlit URL here.
-- Local app: run `./run_app.sh`
+### **[View Live Demo](https://smart-energy-controller.streamlit.app/)** 👁️
 
-This is a Streamlit application. To make the deployed site appear exactly like the local app, deploy it to a host that supports long-running Python web apps.
+
+## Overview
+
+Smart Energy Consumption Controller models a simple home or microgrid energy-management problem. Instead of relying on fixed thresholds, the system uses fuzzy logic to handle uncertain and gradual conditions such as "high price", "low battery", or "medium solar production".
+
+The application converts crisp input values into fuzzy membership degrees, evaluates a rule base, aggregates the active output sets, and defuzzifies the result into a clear energy usage recommendation.
 
 ## Screenshots
 
-Add dashboard screenshots in `assets/screenshots/` and reference them here.
+### 1. Membership Functions
 
-```md
-![Dashboard](assets/screenshots/dashboard.png)
-![Active Rules](assets/screenshots/active-rules.png)
-```
+Capture the plots for electricity price, battery level, solar production, and output energy usage.
 
-## What This Project Does
+![Membership functions](assets/screenshots/membership-functions.png)
 
-This system acts as a smart energy controller for a home or microgrid. Given three inputs, it uses fuzzy logic to decide how aggressively the system should consume energy.
 
-| Input | Range | Description |
-|---|---:|---|
-| Electricity Price | 0-100 cents/kWh | Current grid purchase price |
-| Battery Level | 0-100% | State of charge of battery storage |
-| Solar Production | 0-100% | Solar panel output as percentage of peak capacity |
+### 2. Results and Active Rules
 
-| Output | Range | Meaning |
-|---|---:|---|
-| Energy Usage Level | 0-100% | How much energy the system should consume |
+After pressing `Calculate`, capture the output metrics, aggregated output plot, centroid marker, and fired rules.
 
-The system uses 20 fuzzy IF-THEN rules, Mamdani inference, and centroid defuzzification.
+![Results and active rules](assets/screenshots/results-active-rules-1.png)
 
-## Quick Start
+### 3. Testing Scenarios
 
-Run the app with one command:
+Capture the predefined scenario table and scenario output distribution chart.
+
+![Testing scenarios](assets/screenshots/testing-scenarios-1.png)
+
+### 4. System Overview
+
+Capture the rule base, inference method, and fuzzy logic explanation sections.
+
+![System overview](assets/screenshots/system-overview-1.png)
+
+## Key Features
+
+- Interactive Streamlit interface with sliders for all input variables.
+- Mamdani fuzzy inference engine.
+- Centroid defuzzification for crisp output generation.
+- Visual membership function plots for all inputs and the output variable.
+- Active rule inspection with activation strength values.
+- Aggregated output visualization with centroid marker.
+- Predefined test scenarios for validating system behavior.
+- Explainable rule-based decision process.
+- Dark dashboard layout designed for clear technical presentation.
+
+## System Inputs and Output
+
+| Variable | Type | Range | Linguistic Terms | Description |
+|---|---|---:|---|---|
+| Electricity Price | Input | 0-100 cents/kWh | Low, Medium, High | Current grid electricity price |
+| Battery Level | Input | 0-100% | Low, Medium, High | Current battery state of charge |
+| Solar Production | Input | 0-100% | None, Low, Medium, High | Current solar generation level |
+| Energy Usage Level | Output | 0-100% | Very Low, Low, Medium, High, Very High | Recommended energy consumption level |
+
+## Fuzzy Logic Properties
+
+| Property | Value |
+|---|---|
+| Inference method | Mamdani |
+| Rule evaluation | Min operator |
+| Aggregation | Max operator |
+| Defuzzification | Centroid |
+| Input variables | 3 |
+| Output variables | 1 |
+| Rule count | 20 |
+| Membership function types | Triangular and trapezoidal |
+| Implementation language | Python |
+| Interface framework | Streamlit |
+| Visualization library | Matplotlib |
+
+## How the System Works
+
+1. The user sets electricity price, battery level, and solar production from the sidebar.
+2. Each crisp input is converted into fuzzy membership values.
+3. The fuzzy rule base determines which rules are activated.
+4. Activated rule outputs are clipped and aggregated into one output fuzzy set.
+5. Centroid defuzzification converts the aggregated output into a crisp energy usage percentage.
+6. The app displays the final recommendation, active rules, plots, and scenario analysis.
+
+## Example Decision Logic
+
+The controller follows human-readable reasoning such as:
+
+- If electricity price is high, battery is low, and solar production is low, reduce energy usage.
+- If electricity price is low, battery is high, and solar production is high, allow very high energy usage.
+- If all conditions are balanced, recommend a medium usage level.
+
+## Technology Stack
+
+- Python
+- Streamlit
+- NumPy
+- SciPy
+- scikit-fuzzy
+- Matplotlib
+- NetworkX
+
+## Run Locally
+
+Use the included script:
 
 ```bash
 ./run_app.sh
 ```
 
-The script creates `venv/` if needed, installs missing dependencies from `requirements.txt`, and starts Streamlit.
-
-Open the app at:
+Then open:
 
 ```text
 http://localhost:8501
 ```
 
-To use a different port:
+To run on another port:
 
 ```bash
 PORT=5000 ./run_app.sh
@@ -77,44 +144,6 @@ Run the app:
 streamlit run app.py
 ```
 
-## How to Use the App
+## Notes
 
-1. Adjust the sidebar sliders for electricity price, battery level, and solar production.
-2. Click `Calculate` to run the fuzzy inference engine.
-3. Explore the tabs for membership functions, active rules, testing scenarios, and the system overview.
-
-## Technical Overview
-
-- Inference method: Mamdani min-max
-- Defuzzification: centroid
-- Membership functions: triangular and trapezoidal
-- Inputs: electricity price, battery level, solar production
-- Output: energy usage level
-- Rule base: 20 IF-THEN rules
-
-## Deploying the Main App
-
-### Recommended: Streamlit Community Cloud
-
-This is the simplest option for opening a URL and seeing the real app directly.
-
-1. Push the repository to GitHub.
-2. Go to Streamlit Community Cloud: https://share.streamlit.io/
-3. Create a new app from this repository.
-4. Set the main file path to `app.py`.
-5. Deploy.
-
-### Other Good Options
-
-- Render: good if you want a general web service with a custom domain.
-- Railway: simple app hosting with environment variables and custom domains.
-- Hugging Face Spaces: good for public demos, especially data or AI apps.
-- PythonAnywhere: simple Python hosting for smaller apps.
-
-For Render or Railway, use this start command:
-
-```text
-web: streamlit run app.py --server.address=0.0.0.0 --server.port=$PORT
-```
-
-The same command is already saved in `Procfile`.
+This project is designed as an interpretable control-system prototype. It is suitable for demonstrating fuzzy logic, energy-management decision rules, and explainable AI concepts in a compact interactive application.
