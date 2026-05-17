@@ -10,6 +10,10 @@ The application converts crisp input values into fuzzy membership degrees, evalu
 
 ### **[View Live Demo](https://smart-energy-controller.streamlit.app/)** 👁️
 
+## Download Project Report PDF
+
+[Download ABDALRAZAK_KHALED_22430070907.pdf](assets/docs/ABDALRAZAK_KHALED_22430070907.pdf)
+
 ## Screenshots
 
 ### 1. Membership Functions
