@@ -7,7 +7,7 @@ A Mamdani fuzzy logic system that determines the optimal energy usage level from
 - Live app: add your deployed Streamlit URL here.
 - Local app: run `./run_app.sh`
 
-This is a Streamlit application. To make the deployed site appear exactly like the local app, deploy it to a Streamlit-friendly host such as Streamlit Community Cloud, Render, or Railway.
+This is a Streamlit application. To make the deployed site appear exactly like the local app, deploy it to a host that supports long-running Python web apps.
 
 ## Screenshots
 
@@ -104,22 +104,17 @@ This is the simplest option for opening a URL and seeing the real app directly.
 4. Set the main file path to `app.py`.
 5. Deploy.
 
-### Render or Railway
+### Other Good Options
 
-This repo also includes a `Procfile`:
+- Render: good if you want a general web service with a custom domain.
+- Railway: simple app hosting with environment variables and custom domains.
+- Hugging Face Spaces: good for public demos, especially data or AI apps.
+- PythonAnywhere: simple Python hosting for smaller apps.
+
+For Render or Railway, use this start command:
 
 ```text
 web: streamlit run app.py --server.address=0.0.0.0 --server.port=$PORT
 ```
 
-Use that start command if your host asks for one.
-
-### Why Vercel Shows an Error
-
-Vercel is not the right deployment target for this Streamlit app. Vercel's Python runtime expects a serverless Python entrypoint named `app`, `application`, or `handler`. Streamlit does not expose that kind of entrypoint; it starts its own interactive web server. That is why Vercel reports:
-
-```text
-Found app.py but it does not export a top-level "app", "application", or "handler" variable.
-```
-
-For a normal deployed page that behaves like local Streamlit, use Streamlit Community Cloud.
+The same command is already saved in `Procfile`.
